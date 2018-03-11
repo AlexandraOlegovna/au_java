@@ -8,13 +8,14 @@ public class TrieImpl implements Trie {
      * @param element
      * @return <tt>true</tt> if this set did not already contain the specified
      * element
-     * null and empty string return false because add ended with error
+     * null and empty string return false because addition ended with error
      */
     @Override
     public boolean add(String element) {
         if (isNullOrEmpty(element) || contains(element)) {
             return false;
         }
+
         TrieNodeImpl node = root;
         for (char ch : element.toCharArray()) {
             if (!node.containsNext(ch)) {
@@ -38,6 +39,7 @@ public class TrieImpl implements Trie {
         if (isNullOrEmpty(element)) {
             return false;
         }
+
         TrieNodeImpl node = find(element);
         return node != null && node.isTerminal();
     }
@@ -53,14 +55,16 @@ public class TrieImpl implements Trie {
         if (isNullOrEmpty(element) || !contains(element)) {
             return false;
         }
+
         TrieNodeImpl node = root;
         for (char ch : element.toCharArray()) {
             node.decNumberOfWordsWithThisPrefix();
-            if (node.getNext(ch).getNumberOfWordsWithThisPrefix() == 1) {
+            TrieNodeImpl next = node.getNext(ch);
+            if (next.getNumberOfWordsWithThisPrefix() == 1) {
                 node.removeNext(ch);
                 return true;
             }
-            node = node.getNext(ch);
+            node = next;
         }
         node.decNumberOfWordsWithThisPrefix();
         node.setTerminal(false);
@@ -85,6 +89,7 @@ public class TrieImpl implements Trie {
         if (isNullOrEmpty(prefix)) {
             return 0;
         }
+
         TrieNodeImpl node = find(prefix);
         if (node == null) {
             return 0;

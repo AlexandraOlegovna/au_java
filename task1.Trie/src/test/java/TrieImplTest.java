@@ -101,8 +101,8 @@ class TrieImplTest {
         trie.add("a");
         assertTrue(trie.remove("a"));
         assertFalse(trie.contains("ab"));
-        assertFalse(trie.contains(""));
-        assertFalse(trie.contains(null));
+        assertFalse(trie.remove(""));
+        assertFalse(trie.remove(null));
     }
 
     @Test

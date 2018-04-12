@@ -1,4 +1,8 @@
-public class TrieImpl implements Trie {
+package ru.spbau.mit.task3;
+
+import java.io.*;
+
+public class TrieImpl implements Trie, StreamSerializable {
 
     private TrieNodeImpl root = new TrieNodeImpl();
 
@@ -110,5 +114,20 @@ public class TrieImpl implements Trie {
             node = node.getNext(ch);
         }
         return node;
+    }
+
+    @Override
+    public void serialize(OutputStream out) throws IOException {
+        root.serialize(out);
+    }
+
+    /**
+     * Replace current state with data from input stream
+     *
+     * @param in
+     */
+    @Override
+    public void deserialize(InputStream in) throws IOException {
+        root.deserialize(in);
     }
 }

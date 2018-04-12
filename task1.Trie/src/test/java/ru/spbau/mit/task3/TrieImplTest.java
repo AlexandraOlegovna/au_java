@@ -1,14 +1,20 @@
+package ru.spbau.mit.task3;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.*;
 
+import java.io.*;
+
 class TrieImplTest {
 
     private TrieImpl trie;
+    private TrieImpl trie0;
 
     @BeforeEach
     void initTrie() {
         trie = new TrieImpl();
+        trie0 = new TrieImpl();
     }
 
     @Test
@@ -53,6 +59,53 @@ class TrieImplTest {
         assertEquals(0, trie.howManyStartsWithPrefix("pref"));
         assertEquals(0, trie.howManyStartsWithPrefix("fix"));
     }
+
+    @Test
+    public void testSerializationError() {
+        ByteArrayInputStream is = new ByteArrayInputStream(new byte[0]);
+        assertThrows(IOException.class, () -> trie.deserialize(is));
+    }
+
+    @Test
+    public void testEmptySerialization() throws IOException {
+
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        trie.serialize(os);
+
+        ByteArrayInputStream is = new ByteArrayInputStream(os.toByteArray());
+        trie0.deserialize(is);
+
+        assertEquals(0, trie0.size());
+    }
+
+    @Test
+    public void testSerialization() throws IOException {
+        assertTrue(trie.add("aaa"));
+        assertTrue(trie.add("aa"));
+        assertTrue(trie.add("adcb"));
+        assertTrue(trie.add("dcbaA"));
+
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        trie.serialize(os);
+
+        ByteArrayInputStream is = new ByteArrayInputStream(os.toByteArray());
+        trie0.deserialize(is);
+
+        assertEquals(3, trie0.howManyStartsWithPrefix("a"));
+        assertEquals(2, trie0.howManyStartsWithPrefix("aa"));
+        assertEquals(1, trie0.howManyStartsWithPrefix("aaa"));
+        assertEquals(1, trie0.howManyStartsWithPrefix("d"));
+        assertEquals(1, trie0.howManyStartsWithPrefix("dc"));
+        assertEquals(1, trie0.howManyStartsWithPrefix("dcbaA"));
+
+        assertTrue(trie0.contains("dcbaA"));
+        assertTrue(trie0.contains("adcb"));
+        assertTrue(trie0.contains("aaa"));
+        assertTrue(trie.contains("aa"));
+
+        assertEquals(trie.size(), trie0.size());
+    }
+
 
     @Test
     void addTest() {

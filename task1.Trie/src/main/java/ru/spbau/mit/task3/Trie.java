@@ -1,3 +1,5 @@
+package ru.spbau.mit.task3;
+
 public interface Trie {
 
     /**

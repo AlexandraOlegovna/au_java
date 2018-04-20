@@ -9,18 +9,20 @@ import org.jetbrains.annotations.Nullable;
 public class DictionaryImpl<Key, Value> implements Dictionary<Key, Value> {
 
     private final int MIN_SIZE_OF_TABLE = 16;
+    private final static double INIT_LOW_LEVEL = 0.2;
+    private final static double INIT_HIGH_LEVEL = 0.8;
     private double lowCapacityLevel;
     private double highCapacityLevel;
     private ArrayList<DictionaryList<Key, Value>> hashTable;
     private int size = 0;
 
     public DictionaryImpl() {
-        this(0.2, 0.8);
+        this(INIT_LOW_LEVEL, INIT_HIGH_LEVEL);
     }
 
-    public DictionaryImpl(double low_level, double high_level) {
-        lowCapacityLevel = low_level;
-        highCapacityLevel = high_level;
+    public DictionaryImpl(double lowLevel, double highLevel) {
+        lowCapacityLevel = lowLevel;
+        highCapacityLevel = highLevel;
         initHashTable(MIN_SIZE_OF_TABLE);
     }
 
@@ -35,14 +37,16 @@ public class DictionaryImpl<Key, Value> implements Dictionary<Key, Value> {
     }
 
     @Override
-    public Value get(@Nullable Key key) {
+    @Nullable
+    public Value get(@NotNull Key key) {
         assertNullKey(key);
         int ind = getHash(key);
         return hashTable.get(ind).find(key);
     }
 
     @Override
-    public Value put(@Nullable Key key, @Nullable Value value) {
+    @Nullable
+    public Value put(@NotNull Key key, @NotNull Value value) {
         assertNullKey(key);
         assertNullValue(value);
         int ind = getHash(key);
@@ -53,7 +57,8 @@ public class DictionaryImpl<Key, Value> implements Dictionary<Key, Value> {
     }
 
     @Override
-    public Value remove(@Nullable Key key) {
+    @Nullable
+    public Value remove(@NotNull Key key) {
         assertNullKey(key);
         int ind = getHash(key);
         Value result = hashTable.get(ind).remove(key);
@@ -68,10 +73,23 @@ public class DictionaryImpl<Key, Value> implements Dictionary<Key, Value> {
         size = 0;
     }
 
+    /**
+     * Double hashing is one of the best methods available
+     * for open addressing because the permutations produced have many of the characteristics
+     * of randomly chosen permutations.
+     *
+     * Following the links below you can read about double hashing and see examples of function:
+     * h = k % m
+     * g = 1 + (k / m) % m', m' = m - 1
+     * (h + g) % m
+     *
+     * https://courses.cs.washington.edu/courses/cse326/09wi/lectures/13-hashing.pdf
+     * http://staff.ustc.edu.cn/~csli/graduate/algorithms/book6/chap12.htm
+     */
     private int getHash(@NotNull Key key) {
         int h = key.hashCode() % hashTable.size();
         int g = 1 + ((key.hashCode() / hashTable.size()) % (hashTable.size() - 1));
-        return (h + g) % hashTable.size();
+        return Math.floorMod(h + g,  hashTable.size());
     }
 
     private void assertNullKey(@Nullable Key key) {

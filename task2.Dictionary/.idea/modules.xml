@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/task2.Dictionary.iml" filepath="$PROJECT_DIR$/.idea/modules/task2.Dictionary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/task2.Dictionary_main.iml" filepath="$PROJECT_DIR$/.idea/modules/task2.Dictionary_main.iml" group="task2.Dictionary" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/task2.Dictionary_test.iml" filepath="$PROJECT_DIR$/.idea/modules/task2.Dictionary_test.iml" group="task2.Dictionary" />
+    </modules>
+  </component>
+</project>

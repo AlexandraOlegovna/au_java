@@ -1,0 +1,26 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Java template
+# Compiled class file
+*.class
+
+.idea/*
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+
+.gradle
+/build/
+gradle-app.setting
+!gradle-wrapper.jar
+

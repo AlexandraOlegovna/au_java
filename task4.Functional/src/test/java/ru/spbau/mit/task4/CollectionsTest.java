@@ -23,11 +23,21 @@ public class CollectionsTest {
                 x -> x,
                 java.util.Collections.emptyList()));
 
-        assertEquals(Arrays.asList(0, 1, 2, 3), Collections.map(x -> x, Arrays.asList(0, 1, 2, 3)));
-        assertEquals(Arrays.asList(1, 2, 3, 4), Collections.map(x -> x + 1, Arrays.asList(0, 1, 2, 3)));
-        assertEquals(Arrays.asList(0, 1, 4, 9), Collections.map(x -> x * x, Arrays.asList(0, 1, 2, 3)));
-        assertEquals(Arrays.asList(0, 1, 2), Collections.map(String::length, Arrays.asList("", "1", "12")));
-        assertEquals(Arrays.asList(false, true, true), Collections.map(Objects::isNull, Arrays.asList("12", null, null)));
+        assertEquals(
+            Arrays.asList(0, 1, 2, 3),
+            Collections.map(x -> x, Arrays.asList(0, 1, 2, 3)));
+        assertEquals(
+            Arrays.asList(1, 2, 3, 4),
+            Collections.map(x -> x + 1, Arrays.asList(0, 1, 2, 3)));
+        assertEquals(
+            Arrays.asList(0, 1, 4, 9),
+            Collections.map(x -> x * x, Arrays.asList(0, 1, 2, 3)));
+        assertEquals(
+            Arrays.asList(0, 1, 2),
+            Collections.map(String::length, Arrays.asList("", "1", "12")));
+        assertEquals(
+            Arrays.asList(false, true, true),
+            Collections.map(Objects::isNull, Arrays.asList("12", null, null)));
     }
 
     @Test
@@ -37,11 +47,21 @@ public class CollectionsTest {
                 x -> true,
                 java.util.Collections.emptyList()));
 
-        assertEquals(Arrays.asList(0, 1, 2, 3), Collections.filter(x -> true, Arrays.asList(0, 1, 2, 3)));
-        assertEquals(Arrays.asList(1, 2, 3), Collections.filter(x -> x > 0, Arrays.asList(0, 1, 2, 3)));
-        assertEquals(Arrays.asList(0, 2), Collections.filter(x -> x % 2 == 0, Arrays.asList(0, 1, 2, 3)));
-        assertEquals(java.util.Collections.emptyList(), Collections.filter(x -> x.contains("3"), Arrays.asList("", "1", "12")));
-        assertEquals(Arrays.asList(null, null), Collections.filter(Objects::isNull, Arrays.asList("12", null, null)));
+        assertEquals(
+            Arrays.asList(0, 1, 2, 3),
+            Collections.filter(x -> true, Arrays.asList(0, 1, 2, 3)));
+        assertEquals(
+            Arrays.asList(1, 2, 3),
+            Collections.filter(x -> x > 0, Arrays.asList(0, 1, 2, 3)));
+        assertEquals(
+            Arrays.asList(0, 2),
+            Collections.filter(x -> x % 2 == 0, Arrays.asList(0, 1, 2, 3)));
+        assertEquals(
+            java.util.Collections.emptyList(),
+            Collections.filter(x -> x.contains("3"), Arrays.asList("", "1", "12")));
+        assertEquals(
+            Arrays.asList(null, null),
+            Collections.filter(Objects::isNull, Arrays.asList("12", null, null)));
     }
 
     @Test
@@ -51,12 +71,24 @@ public class CollectionsTest {
                 x -> true,
                 java.util.Collections.emptyList()));
 
-        assertEquals(Arrays.asList(0, 1, 2), Collections.takeWhile(gteZero, Arrays.asList(0, 1, 2, -2, -3)));
-        assertEquals(java.util.Collections.singletonList(0), Collections.takeWhile(isEven, Arrays.asList(0, 1, 2, -2, -3)));
-        assertEquals(Arrays.asList(0, 1, 2, -2), Collections.takeWhile(gteZeroORisEven, Arrays.asList(0, 1, 2, -2, -3)));
-        assertEquals(java.util.Collections.singletonList(0), Collections.takeWhile(gteZeroANDisEven, Arrays.asList(0, 1, 2, -2, -3)));
-        assertEquals(Arrays.asList("3", "13"), Collections.takeWhile(x -> x.contains("3"), Arrays.asList("3", "13", "12")));
-        assertEquals(java.util.Collections.singletonList(null), Collections.takeWhile(Objects::isNull, Arrays.asList(null, "12", null, null)));
+        assertEquals(
+            Arrays.asList(0, 1, 2),
+            Collections.takeWhile(gteZero, Arrays.asList(0, 1, 2, -2, -3)));
+        assertEquals(
+            java.util.Collections.singletonList(0),
+            Collections.takeWhile(isEven, Arrays.asList(0, 1, 2, -2, -3)));
+        assertEquals(
+            Arrays.asList(0, 1, 2, -2),
+            Collections.takeWhile(gteZeroORisEven, Arrays.asList(0, 1, 2, -2, -3)));
+        assertEquals(
+            java.util.Collections.singletonList(0),
+            Collections.takeWhile(gteZeroANDisEven, Arrays.asList(0, 1, 2, -2, -3)));
+        assertEquals(
+            Arrays.asList("3", "13"),
+            Collections.takeWhile(x -> x.contains("3"), Arrays.asList("3", "13", "12")));
+        assertEquals(
+            java.util.Collections.singletonList(null),
+            Collections.takeWhile(Objects::isNull, Arrays.asList(null, "12", null, null)));
     }
 
     @Test
@@ -66,12 +98,24 @@ public class CollectionsTest {
                 x -> true,
                 java.util.Collections.emptyList()));
 
-        assertEquals(Arrays.asList(-3, -2), Collections.takeUnless(gteZero, Arrays.asList(-3, -2, 1, 0, 2)));
-        assertEquals(java.util.Collections.singletonList(-3), Collections.takeUnless(isEven, Arrays.asList(-3, -2, 1, 0, 2)));
-        assertEquals(Arrays.asList(-3, -1), Collections.takeUnless(gteZeroORisEven, Arrays.asList(-3, -1, 0, 1, 2)));
-        assertEquals(Arrays.asList(-3, 1, -2), Collections.takeUnless(gteZeroANDisEven, Arrays.asList(-3, 1, -2, 0, 2)));
-        assertEquals(java.util.Collections.emptyList(), Collections.takeUnless(x -> x.contains("3"), Arrays.asList("13", "",  "12")));
-        assertEquals(java.util.Collections.singletonList(""), Collections.takeUnless(Objects::isNull, Arrays.asList("", null, "12", null, null)));
+        assertEquals(
+            Arrays.asList(-3, -2),
+            Collections.takeUnless(gteZero, Arrays.asList(-3, -2, 1, 0, 2)));
+        assertEquals(
+            java.util.Collections.singletonList(-3),
+            Collections.takeUnless(isEven, Arrays.asList(-3, -2, 1, 0, 2)));
+        assertEquals(
+            Arrays.asList(-3, -1),
+            Collections.takeUnless(gteZeroORisEven, Arrays.asList(-3, -1, 0, 1, 2)));
+        assertEquals(
+            Arrays.asList(-3, 1, -2),
+            Collections.takeUnless(gteZeroANDisEven, Arrays.asList(-3, 1, -2, 0, 2)));
+        assertEquals(
+            java.util.Collections.emptyList(),
+            Collections.takeUnless(x -> x.contains("3"), Arrays.asList("13", "",  "12")));
+        assertEquals(
+            java.util.Collections.singletonList(""),
+            Collections.takeUnless(Objects::isNull, Arrays.asList("", null, "12", null, null)));
     }
 
     @Test

@@ -76,8 +76,12 @@ public class PredicateTest {
         assertTrue(isNull.or(undefined).apply(null));
         assertFalse(isNull.and(undefined).apply("123"));
 
-        assertThrows(NullPointerException.class, () -> isNull.or(undefined).apply("123"));
-        assertThrows(NullPointerException.class, () -> undefined.and(undefined.ALWAYS_TRUE).apply(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> isNull.or(undefined).apply("123"));
+        assertThrows(
+            NullPointerException.class,
+            () -> undefined.and(undefined.ALWAYS_TRUE).apply(null));
 
     }
 }
